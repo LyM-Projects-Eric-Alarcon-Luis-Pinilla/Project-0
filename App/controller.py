@@ -7,6 +7,10 @@ def load_data(filename):
 
     return text
 
+""" 
+Verify returns TRUE or FALSE 
+"""
+
 def verify(text):
     return model.verify_code(text)
     
