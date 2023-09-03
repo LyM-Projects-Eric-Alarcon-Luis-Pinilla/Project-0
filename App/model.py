@@ -2,7 +2,8 @@ import regex as re
 import keywords as key
 import defvar
 import defproc
-import block
+import procedureblock as bl
+import tokenizer as tk
 
 
 def verify_code(text:str)->bool:  
@@ -14,87 +15,39 @@ def verify_code(text:str)->bool:
     Returns:
         _boolean: True/False 
     """
-    tokenizer = tokenize(text)
+    tokenizer = tk.tokenize(text)
     list_of_components = create_blocks(tokenizer)
     
     if list_of_components is None:
         return False
     else:
-        individual_verification(list_of_components)
-    return True
+        verify = individual_verification(list_of_components)
+    return verify
 
-def individual_verification(list_of_components):
+def individual_verification(list_of_components:list)->bool:
+    
+    """_summary_
+    Args:
+        list of componentes: list of sublists which are blocks of commands or procedure
+
+    Returns:
+        flag(bool): if each of the blocks has a correct syntax is True else False.
+    """
     
     flag = True
     i = 0
     while i < len(list_of_components) and flag:
         
-        blocks = list_of_components[i]
-        if key.clasificadorKeyWord(blocks[0]) == 1:
-            flag = defvar.check()
-        if key.clasificadorKeyWord(blocks[0]) == 2:
+        block = list_of_components[i]
+        if key.clasificadorKeyWord(block[0]) == 1:
+            flag = defvar.check(block)
+        if key.clasificadorKeyWord(block[0]) == 2:
             flag = defproc.check()
-        if key.clasificadorKeyWord(blocks[0]) == 3:
-            flag = block.check()
+        if key.clasificadorKeyWord(block[0]) == 3:
+            flag = bl.check()
         i +=1
         
     return flag
-
-def tokenize(text:str)->list:
-    """_summary_
-
-    Args:
-        text (str): one string of the whole txt
-
-    Returns:
-        list: tokenized list
-    """
-    
-    raw_list = re.split("\s",text)
-    tokenized_list = []
-    
-    for token in raw_list:
-        token = token.lower()
-        
-        if token!= "":
-            if has_separator(token):
-                sub_token = ""
-                for small_token in token:
-                    if (small_token == "(" or small_token == "{") and sub_token == "":
-                        tokenized_list.append(small_token)
-                        if len(sub_token) != 0:
-                            tokenized_list.append(sub_token)
-                            sub_token = ""
-                    elif (small_token == ")" or small_token == "}") or ((small_token == "(" or small_token == "{") and sub_token != ""):
-                        if len(sub_token) != 0:
-                            tokenized_list.append(sub_token)
-                            sub_token = ""
-                        tokenized_list.append(small_token)
-                    else:
-                        sub_token += small_token    
-                        
-                if len(sub_token) != 0:
-                            tokenized_list.append(sub_token)
-                            sub_token = ""      
-            else:
-                tokenized_list.append(token)
-
-    return tokenized_list
-
-def has_separator(token:str)->bool:
-    """_summary_
-
-    Args:
-        token (str): Any token in form of str
-
-    Returns:
-        bool: Returns if a separator is present in the token
-    """
-    
-    if ("(") in token or (")") in token or ("{") in token or ("}") in token:
-        return True
-    else:
-        return False
     
 def block_def_var(i,tokenizer)->tuple:
     
@@ -189,5 +142,4 @@ def create_blocks(tokenizer:list) -> list:
             flag = False
         
         
-    return list_of_components
-    
+    return list_of_components    
