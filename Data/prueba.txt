@@ -4,7 +4,6 @@ defVar y 0
 defVar one 0
 
 
-
 defProc putCB (c , b)
 {
 
@@ -24,6 +23,7 @@ defProc goNorth ()
 	while can(walk(1 , north )) { walk(1 , north) }
 
 }
+
 
 defProc goWest ()
 {

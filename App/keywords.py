@@ -8,16 +8,13 @@ def isKeyWord(token:str)-> bool:
   Args: token to be evaluated
   Returns: True or False 
   """
-  token = token.lower
-  keys = ["defVar", "defProc", "{"]
+  keys = ["defvar", "defproc", "{"]
   
   if token in keys:
         return True
   
   else: 
       return False
-
-
 
 def clasificadorKeyWord (token:str)->int:
     """Main Function
