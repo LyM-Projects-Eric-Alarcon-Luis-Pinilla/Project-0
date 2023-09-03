@@ -188,8 +188,8 @@ def correctTypeParamsRegular(paramtoVerify: list, criteria: dict)->bool:
 ##############################
 ##############################
 
-prueba = ["drop","(","x",")"]
-print(commandSyntaxChecker(prueba))
+""""prueba = ["drop","(","x",")"]"""
+"print(commandSyntaxChecker(prueba))"
 
 
 
