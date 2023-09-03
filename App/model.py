@@ -1,7 +1,7 @@
 import regex as re 
 
 
-def verify_code(text):
+def verify_code(text:str)->bool:  
     """Main Function
 
     Args:
@@ -14,8 +14,14 @@ def verify_code(text):
     
     return True
 
-def tokenize(text):
+def tokenize(text:str)->list:
+    
+    
+    raw_list = re.split("\s",text)
+    tokenized_list = []
+    
+    for token in raw_list:
+        pass
+
     return True
-        
-        
         
