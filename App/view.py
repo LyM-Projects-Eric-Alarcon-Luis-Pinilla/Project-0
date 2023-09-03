@@ -1,8 +1,10 @@
 import controller 
 
-print("Bienvenido, recuerde que antes de empezar con las pruebas ")
-print("debe colocar el archivo txt que desea verificar en la carpeta 'Data' de este proyecto \n")
-filename = input("Cúal es el nombre del archivo que desea verificar: \n")
+print("=================================================")
+print("Welcome, remember that before running the code ")
+print("you should place the txt file you want to verify in the 'Data' folder of this proyect \n \n")
+print("=================================================")
+filename = input("What is the name of the file you want to verify? \n================================================= \n")
 try:
     data = controller.load_data(filename)
     print("Verifying the code........")
