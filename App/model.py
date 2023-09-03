@@ -12,6 +12,7 @@ def verify_code(text:str)->bool:
         _boolean: True/False 
     """
     tokenizer = tokenize(text)
+    print(tokenizer)
     print("\nFinished tokenizing the txt..... \n\n")
     list_of_components = create_blocks(tokenizer)
     
