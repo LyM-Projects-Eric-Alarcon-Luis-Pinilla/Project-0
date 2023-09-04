@@ -16,11 +16,13 @@ def verify_code(text:str)->bool:
         _boolean: True/False 
     """
     tokenizer = tk.tokenize(text)
+    print("Tokenization complete \n")
     list_of_components = create_blocks(tokenizer)
     
     if list_of_components is None:
         return False
     else:
+        print("Blocks identified correctlt")
         verify = individual_verification(list_of_components)
     return verify
 
@@ -41,10 +43,16 @@ def individual_verification(list_of_components:list)->bool:
         block = list_of_components[i]
         if key.clasificadorKeyWord(block[0]) == 1:
             flag = defvar.check(block)
+            if flag:
+                print("defVar initialized correctly")
         elif key.clasificadorKeyWord(block[0]) == 2:
             flag = defproc.check(block)
+            if flag:
+                print("defProc initialized correctly")
         elif key.clasificadorKeyWord(block[0]) == 3:
             flag = bl.check(block,[])
+            if flag:
+                print("Block initialized correctly")
         i +=1
         
     return flag
