@@ -1,10 +1,7 @@
 """
 Funciones que van a entrar: 
-
-
 name = v 
 jump()
-
 walk()
 Walk() pero con direccion
 walk ()pero con putnros cardinales (norete sur este etc)
@@ -20,10 +17,12 @@ letgo
 nop
 facing
 can
-
-
-
 """
+
+def verify_command(command:list,parameters:list) -> bool:
+    pass
+    
+
 regular_command_data = {
     "jump":{"Quantity":2 ,"Types": [int,int]},
     "turn":{"Quantity":1 , "Types": [str]},
@@ -56,14 +55,13 @@ def commandSyntaxChecker(sublist:list)->bool:
     if sublist[0] == "walk" or sublist[0]== "leap":
         return checkSpecialCommand(sublist)
     else:
-        
         return checkRegularCommand(sublist)
 
 
 
 
 
-def checkRegularCommand(sublist:list)->bool:
+def  checkRegularCommand(sublist:list)->bool:
 
     """
     Function: checks if the syntax of the function declaration is correct

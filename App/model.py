@@ -41,9 +41,9 @@ def individual_verification(list_of_components:list)->bool:
         block = list_of_components[i]
         if key.clasificadorKeyWord(block[0]) == 1:
             flag = defvar.check(block)
-        if key.clasificadorKeyWord(block[0]) == 2:
-            flag = defproc.check()
-        if key.clasificadorKeyWord(block[0]) == 3:
+        elif key.clasificadorKeyWord(block[0]) == 2:
+            flag = defproc.check(block)
+        elif key.clasificadorKeyWord(block[0]) == 3:
             flag = bl.check()
         i +=1
         
