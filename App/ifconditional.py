@@ -7,6 +7,8 @@ conditional_command = ["can","facing","not"]
 
 def check(command:list,parameters:list)->bool:
     
+    verify = True
+    
     if command[0] != "if":
         return False
     
@@ -25,11 +27,22 @@ def check(command:list,parameters:list)->bool:
     else:
         return False
     
+    tuple_block_check = submit_block(command[new_i::],parameters)
+    if tuple_block_check[0] is False:
+        return False
+    new_i = tuple_block_check[1]
     
+    if command[new_i] != "else":
+        return False
     
-    pass
+    tuple_else_check = submit_block(command[new_i+1::],parameters)
+    
+    if tuple_else_check[0] is False:
+        return False
+        
+    return verify
 
-def check_can_not(command:list,parameters:list)->bool:
+def check_can_not(command:list,parameters:list)->tuple:
     
     pos = 1
     flag = True
@@ -61,7 +74,7 @@ def check_facing(command:list)->bool:
     else:
         return True
     
-def submit_bloc(command:list,parameters:list):
+def submit_block(command:list,parameters:list)->tuple:
    
     pos = 1
     flag = True
@@ -73,4 +86,8 @@ def submit_bloc(command:list,parameters:list):
             flag = False
             
         pos +=1
-    pass
+        
+        
+    verify = sc.verify_command(simple_com,parameters)
+    
+    return verify,pos

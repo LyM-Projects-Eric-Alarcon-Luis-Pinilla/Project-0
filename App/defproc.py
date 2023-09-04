@@ -33,6 +33,7 @@ def check(block:list)->bool:
         return verify
     
 prueba = ["defproc","putcb","(","c",",","b",")","{",
-          "jump","(","3",",","3",")",";","nop","(",")","}"]
+          "if","can","(","walk","(","1",",","west",")",")","{","walk","(",
+          "1","west",")","}","else","{","nop","(",")","}","}"]
 
 print(check(prueba))

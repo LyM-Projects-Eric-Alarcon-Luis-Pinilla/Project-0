@@ -109,11 +109,9 @@ def walk_leap_possibilities(command:list,parameters:list)->bool:
 
 def check_conditional_command(command:list,parameters:list)->bool:
 
-    verify =  ifc.check()
+    verify =  ifc.check(command,parameters)
     
-        
-    pass
-
+    return verify
 
 
 
