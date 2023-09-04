@@ -1,5 +1,6 @@
 import keyword as ke
 import datatype as dt
+import simplecom as smc
 
 def check(block:list)->bool:
     """_summary_
@@ -19,5 +20,7 @@ def check(block:list)->bool:
         verify = False
     if not (dt.is_value(block[2])):
         verify = False
-    
+    if verify is True:
+        smc.add_var(block[1])
+        
     return verify

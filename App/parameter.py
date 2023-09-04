@@ -1,6 +1,6 @@
 import datatype as dt
 import keywords as ke
- 
+import simplecom as scm
  
 def structure_parameter(sublist:list,num_parameter:int, type_parameter:str,variables:list)->bool:
     
@@ -19,6 +19,8 @@ def structure_parameter(sublist:list,num_parameter:int, type_parameter:str,varia
     if sublist[0] != "(" or sublist[-1] != ")":
         return False
     
+    defined_var = scm.get_var() 
+    
     while pos < len(sublist)-1 and verify:
         token = sublist[pos]
         
@@ -29,9 +31,8 @@ def structure_parameter(sublist:list,num_parameter:int, type_parameter:str,varia
                 verify = False
                 
             elif type_parameter == "int":
-            
                 if not(token.isnumeric()):
-                    if token not in variables:
+                    if token not in variables or token not in defined_var:
                         verify = False
             count_parameter += 1
     

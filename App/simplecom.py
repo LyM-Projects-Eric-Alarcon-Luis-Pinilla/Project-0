@@ -2,6 +2,7 @@ import parameter as par
 import datatype as dt 
 import ifconditional as ifc
 import whilecycle
+import keywords as ke
 
 regular_command = {
     "jump":{"quantity":2 ,"type": "int"},
@@ -13,6 +14,12 @@ regular_command = {
     "letgo": {"quantity":1 , "type": "int"},
     "nop":{"quantity":0 , "type": "None"},
     }
+
+defined_command = {
+        
+}
+
+defined_var = []
 
 special_command = ["walk","leap"]
 
@@ -26,7 +33,7 @@ allowed_O= ["north", "south", "west", "east"]
 
 def verify_command(command:list,parameters:list) -> bool:
     
-    verify = True
+    verify = check_possible_assignment(command)
     
     if command[0] in regular_command:
         verify = check_Regular_Command(command,parameters)
@@ -39,6 +46,8 @@ def verify_command(command:list,parameters:list) -> bool:
         return verify 
     elif command[0] in cycle_command:
         verify = check_cycle_command(command,parameters)
+    elif command[0] in defined_command:
+        verify = check_defined_command(command)
     else:
         return False
     
@@ -124,15 +133,41 @@ def check_cycle_command(command:list,parameters:list)->bool:
     return verify
         
 
+def check_possible_assignment(command:list):
+    
+    verify = True
 
+    if len(command) > 4 or len(command) < 3:
+        return False
+    if ke.isKeyWord(command[0]) or command[0].isnumeric():
+        return False
+    if command[1] != "=":
+        return False
+    if not (command[2].isnumeric()):
+        return False
+    
+    return verify
+        
+def check_defined_command(command:list)->bool:
+    
+    verify_parameter = par.check(command,1,"None",defined_command[command[0]]["quantity"],[])
+    
+    return verify_parameter[0]
 
+def add_command(name:str,num_par:int)->None:
+    
+    defined_command[name] = {"quantity":num_par}
+    
+    pass
 
+def add_var(name:str)->None:
+    
+    defined_var.append(name)
 
+    pass
 
-
-
-
-
+def get_var()->list:
+    return defined_var
 
 
 

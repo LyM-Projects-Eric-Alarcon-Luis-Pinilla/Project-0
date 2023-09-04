@@ -1,6 +1,7 @@
 import keyword as ke
 import parameter
 import procedureblock as procedure
+import simplecom as smc
 
 
 def check(block:list)->bool:
@@ -18,8 +19,10 @@ def check(block:list)->bool:
         verify = False
     if ke.iskeyword(block[1]) or block[1].isnumeric():
         verify = False
-
     list_parameter = parameter.list_parameter_def(block[2::])
+    
+    smc.add_command(block[1],len(list_parameter))
+    
     tuple_par = parameter.check(block,2,"str",-1,list_parameter)
     
     verify = tuple_par[0]
@@ -32,13 +35,4 @@ def check(block:list)->bool:
         
         return verify
     
-#prueba = ["defproc","putcb","(","c",",","b",")","{",
-        #  "if","can","(","walk","(","1",",","west",")",")","{","walk","(",
-         # "1","west",")","}","else","{","nop","(",")","}","}"]
-
-
-
-prueba = ["defproc","putcb","(","c",",","b",")","{", 
-          "while", "can", "(","walk","(","1",",","west",")",")","{",
-          "walk","(","1",",","west",")","}","}"]
-print(check(prueba))
+    
