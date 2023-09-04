@@ -5,6 +5,7 @@ allowed_D = ["front", "right", "left","back"]
 allowed_O= ["north", "south", "west", "east"]
 conditional_command = ["can","facing","not"]
 
+
 def check(command:list,parameters:list)->bool:
     
     verify = True
@@ -12,20 +13,10 @@ def check(command:list,parameters:list)->bool:
     if command[0] != "if":
         return False
     
-    if command[1] in conditional_command:
-        
-        if command[1] == "can" or command[1] == "not":
-            tuple_check = check_can_not(command[2::],parameters)
-            if tuple_check[0] is False:
-                return False
-            new_i = tuple_check[1] + 2
-        
-        elif command[1] == "facing":
-            if check_facing(command) is False:
-                return False
-            new_i = 5
-    else:
+    tuple_cond_check = check_condition(command,parameters,1)
+    if tuple_cond_check[0] is False:
         return False
+    new_i = tuple_cond_check[1]
     
     if command[new_i] != ")":
         return False
@@ -97,3 +88,26 @@ def submit_block(command:list,parameters:list)->tuple:
     verify = pb.check(simple_com,parameters)
     
     return verify,pos
+
+def check_condition(command:list,parameters:list,start_word:int)->tuple:
+    
+    verify = True
+    
+    if command[start_word] in conditional_command:
+        
+        if command[start_word] == "can" or command[start_word] == "not":
+            tuple_check = check_can_not(command[start_word+1::],parameters)
+            if tuple_check[0] is False:
+                return False,0
+            new_i = tuple_check[1] + 2
+        
+        elif command[1] == "facing":
+            if check_facing(command) is False:
+                return False,0
+            new_i = 5
+    else:
+        return False,0
+    
+    return verify,new_i
+    
+    

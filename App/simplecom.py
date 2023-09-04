@@ -38,7 +38,7 @@ def verify_command(command:list,parameters:list) -> bool:
         verify = check_conditional_command(command,parameters)
         return verify 
     elif command[0] in cycle_command:
-        verify = 
+        verify = check_cycle_command(command,parameters)
     else:
         return False
     
@@ -116,10 +116,12 @@ def check_conditional_command(command:list,parameters:list)->bool:
 def check_cycle_command(command:list,parameters:list)->bool:
     
     if command[0] == "while":
-        verify = whilecycle.check()
+        verify = whilecycle.check(command[1::],parameters)
         
     elif command[0] == "repeat":
-        pass
+        verify = whilecycle.check_repeat(command[1::],parameters)
+    
+    return verify
         
 
 
