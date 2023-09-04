@@ -1,5 +1,7 @@
 import keyword as ke
 import parameter
+import procedureblock as procedure
+
 
 def check(block:list)->bool:
     """_summary_
@@ -17,12 +19,20 @@ def check(block:list)->bool:
     if ke.iskeyword(block[1]) or block[1].isnumeric():
         verify = False
     
-    tuple_par = parameter.check(block)
+    list_parameter = parameter.list_parameter_def(block[2::])
+    tuple_par = parameter.check(block,2,"str",-1,list_parameter)
+    
     verify = tuple_par[0]
     index = tuple_par[1]
     
     if verify is False:
         return False
     else:
-        return True
+        verify = procedure.check(block[index::],list_parameter)
+        
+        return verify
     
+prueba = ["defproc","putcb","(","c",",","b",")","{",
+          "jump","(","3",",","3",")",";","nop","(",")","}"]
+
+print(check(prueba))

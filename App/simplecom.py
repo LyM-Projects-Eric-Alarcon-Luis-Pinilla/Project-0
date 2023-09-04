@@ -1,67 +1,52 @@
-"""
-Funciones que van a entrar: 
-name = v 
-jump()
-walk()
-Walk() pero con direccion
-walk ()pero con putnros cardinales (norete sur este etc)
-leap()
-leap ()
-leap()
-turn
-turnto
-drop
-get
-grab
-letgo
-nop
-facing
-can
-"""
+import parameter as par
+import datatype as dt 
+import ifconditional as ifc
 
-def verify_command(command:list,parameters:list) -> bool:
-    pass
-    
-
-regular_command_data = {
-    "jump":{"Quantity":2 ,"Types": [int,int]},
-    "turn":{"Quantity":1 , "Types": [str]},
-    "turnto":{"Quantity":1 , "Types": [str]},
-    "drop":{"Quantity":1 , "Types": [int]},
-    "get":{"Quantity":1 , "Types": [int]},
-    "grab":{"Quantity":1 , "Types": [int]},
-    "letgo": {"Quantity":1 , "Types": [int]},
-    #"nop":{"Quantity":0 , "Types": [None]},
-    "facing": {"Quantity":1 , "Types": [str]},
-    "can":{"Quantity":1 , "Types": [str]}
-    #"not": {"Quantity":1 , "Types": [bool]}
+regular_command = {
+    "jump":{"quantity":2 ,"type": "int"},
+    "turn":{"quantity":1 , "type": "str"},
+    "turnto":{"quantity":1 , "type": "str"},
+    "drop":{"quantity":1 , "type": "int"},
+    "get":{"quantity":1 , "type": "int"},
+    "grab":{"quantity":1 , "type": "int"},
+    "letgo": {"quantity":1 , "type": "int"},
+    "nop":{"quantity":0 , "type": "None"},
     }
 
-special_command_data = {
-    "walk":{"Quantity"},
-    "leap": {}
+special_command = ["walk","leap"]
 
+conditional_command = ["if"]
 
-}
+cycle_command = {"while":{"quantity":1},
+                 "repeat":{"quantity":1}}
 
 allowed_D = ["front", "right", "left","back"]
 allowed_O= ["north", "south", "west", "east"]
 
 
-
-def commandSyntaxChecker(sublist:list)->bool:
-
-
-    if sublist[0] == "walk" or sublist[0]== "leap":
-        return checkSpecialCommand(sublist)
+def verify_command(command:list,parameters:list) -> bool:
+    
+    verify = True
+    
+    if command[0] in regular_command:
+        verify = check_Regular_Command(command,parameters)
+        return verify
+    elif command[0] in special_command:
+        verify = check_Special_Command(command,parameters)
+        return verify
+    elif command[0] in conditional_command:
+        verify = check_conditional_command(command,parameters)
+        return verify 
+    elif command[0] in cycle_command:
+        pass
     else:
-        return checkRegularCommand(sublist)
+        return False
+    
+    return verify
+    
 
 
-
-
-
-def  checkRegularCommand(sublist:list)->bool:
+def check_Regular_Command(sublist:list,parameters:list)->bool:
 
     """
     Function: checks if the syntax of the function declaration is correct
@@ -69,125 +54,67 @@ def  checkRegularCommand(sublist:list)->bool:
     Return: True/False if the syntax is correct. 
     """
     
-    #Checks if the structure of the task starts with kw followed by ( and ends in )
-    if sublist[0] not in regular_command_data.keys() or sublist[1]!= "(" or sublist[-1]!= ")":
+    command_dic = regular_command[sublist[0]]
+    verify_parameter = par.check(sublist,1,command_dic["type"],command_dic["quantity"],parameters)
+    
+    if verify_parameter[0] is False:
+        return False
+    else:
+        last_index = verify_parameter[1]
+        if last_index == len(sublist) or (last_index+1 == len(sublist) and sublist[-1] == ";"):
+            return True
+        else:
             return False
-
-
-    criteriaParameter = regular_command_data[sublist[0]]
-    parameters = []
-    structure = True
-    while structure:
-
-        #Makes a sub-sub list with the parameters so I can check them
-            parameters = sublist[2:-1]
-            #This function checks that the parameters are correctly indexed.
-            if parameterVerifier(parameters, criteriaParameter) !=True:
-                structure = False
-            else: 
-                print("Hola")
-                return True
-                
-
-    return structure
-
-def checkSpecialCommand(sublist:list)->bool:
+    
+def check_Special_Command(sublist:list,parameters:list)->bool:
 
     """ Aquí se usa un criterio especial para walk y leap"""
-
-
-    return 0
-
-def parameterVerifier(paramtoVerify:list, criteria:dict)->bool:
-    """
-    This function sets a set of rules for all the parameters for the simple commands and checks if they check out
-    Args: Parameter to verifu(list) it is a token list with the components inside a parameter instantation
-    return : True or false if the parameter lists are well defined. 
-    """
-
-    estructParam = True
-    while estructParam:
-        #This function checks if the parameters are correctly separated by commas
-        commas=isSeparatedbyComma(paramtoVerify)
-        if commas != True:
-            
-            return False
-        
-        num_parameters = correctNumberParameters(paramtoVerify, criteria)
-        if  num_parameters!=True:
-            
-            return False
-        
-        if correctTypeParamsRegular(paramtoVerify, criteria) != True:
-            estructParam = False
-
-        return True
     
-    return estructParam
+    verify = walk_leap_possibilities(sublist,parameters)
+    
+    return verify
 
-
-
-
-
-def isSeparatedbyComma(paramtoVerify:list)->bool: 
-    #Checks if the first and last elements are ","
-    if paramtoVerify[0] == "," or paramtoVerify[-1] == ",":
+def is_command_present(text:str):
+    
+    if text in (regular_command) or text in special_command or text in conditional_command or text in cycle_command:
+        return True
+    else:
         return False
 
-    else: 
-        num_commas = paramtoVerify.count(",")
-        num_Notcommas = sum(1 for token in paramtoVerify if token != ",")
-        if num_Notcommas- num_commas ==1:
-            return True
+def walk_leap_possibilities(command:list,parameters:list)->bool:
+    
+    inner_parameter = par.list_parameter_def(command[1::])
+    num_inner_parameter = len(inner_parameter)
+    
+    if num_inner_parameter == 1:
         
-        return True
-
-def correctNumberParameters(paramtoVerify:list, criteria:dict)->bool:
+        if dt.is_value(inner_parameter[0]):
+            verify = par.check(command,1,"None",1,parameters)
+        else:
+            return False
     
-
-    only_param = [parameter for parameter in paramtoVerify if parameter != ","]
-    if len(only_param) == criteria["Quantity"]:
-        return True
-    
+    elif num_inner_parameter == 2:
+        
+        if dt.is_value(inner_parameter[0]):
+            if inner_parameter[1] in allowed_D or inner_parameter[1] in allowed_O:
+                verify = par.check(command,1,"None",2,parameters)
+            else:
+                return False
+        else:
+            return False    
     else:
         return False
     
+    return verify
 
+def check_conditional_command(command:list,parameters:list)->bool:
 
-def correctTypeParamsRegular(paramtoVerify: list, criteria: dict)->bool:
-    """This will check if the parameters entered into the  function are coherent to the ones 
-    specified on the language for functoins other than walk or leap"""
+    verify =  ifc.check()
     
-    only_parameters = [parameter for parameter in paramtoVerify if parameter != ","]
-    criteria_types = criteria["Types"]
-
-    fixed_parameters = []
-
-    for p in only_parameters:
-        try:
-            p_int = int(p)
-            fixed_parameters.append(p_int)
         
-        except ValueError:
-            fixed_parameters.append(p)
+    pass
 
 
-
-    for c in range(0,len(fixed_parameters)):
-        if type(fixed_parameters[c])!= criteria_types[c]:
-            return False
-        else:
-            if type(fixed_parameters[c]) == str: 
-                if fixed_parameters not in allowed_D or fixed_parameters not in allowed_O: 
-                    return False
-
-    return True
-
-##############################
-##############################
-
-""""prueba = ["drop","(","x",")"]"""
-"print(commandSyntaxChecker(prueba))"
 
 
 
