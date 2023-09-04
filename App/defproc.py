@@ -18,7 +18,7 @@ def check(block:list)->bool:
         verify = False
     if ke.iskeyword(block[1]) or block[1].isnumeric():
         verify = False
-    
+
     list_parameter = parameter.list_parameter_def(block[2::])
     tuple_par = parameter.check(block,2,"str",-1,list_parameter)
     
@@ -34,6 +34,6 @@ def check(block:list)->bool:
     
 prueba = ["defproc","putcb","(","c",",","b",")","{",
           "if","can","(","walk","(","1",",","west",")",")","{","walk","(",
-          "1","west",")","}","else","{","nop","(",")","}","}"]
+          "1","west",")","}","else","{","nop","(",")","}",";","}"]
 
 print(check(prueba))

@@ -1,6 +1,7 @@
 import parameter as par
 import datatype as dt 
 import ifconditional as ifc
+import whilecycle
 
 regular_command = {
     "jump":{"quantity":2 ,"type": "int"},
@@ -17,8 +18,7 @@ special_command = ["walk","leap"]
 
 conditional_command = ["if"]
 
-cycle_command = {"while":{"quantity":1},
-                 "repeat":{"quantity":1}}
+cycle_command = ["while","repeat"]
 
 allowed_D = ["front", "right", "left","back"]
 allowed_O= ["north", "south", "west", "east"]
@@ -38,7 +38,7 @@ def verify_command(command:list,parameters:list) -> bool:
         verify = check_conditional_command(command,parameters)
         return verify 
     elif command[0] in cycle_command:
-        pass
+        verify = 
     else:
         return False
     
@@ -112,6 +112,15 @@ def check_conditional_command(command:list,parameters:list)->bool:
     verify =  ifc.check(command,parameters)
     
     return verify
+
+def check_cycle_command(command:list,parameters:list)->bool:
+    
+    if command[0] == "while":
+        verify = whilecycle.check()
+        
+    elif command[0] == "repeat":
+        pass
+        
 
 
 
