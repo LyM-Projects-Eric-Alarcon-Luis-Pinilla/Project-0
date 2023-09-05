@@ -39,7 +39,7 @@ def check(command:list,parameters:list)->bool:
     
     return verify
 
-def check_can_not(command:list,parameters:list)->tuple:
+def check_can(command:list,parameters:list)->tuple:
     
     pos = 1
     flag = True
@@ -71,6 +71,10 @@ def check_facing(command:list)->bool:
     else:
         return True
     
+def check_not(block:list)->bool:
+    ###Implementation not
+    return False
+
 def submit_block(command:list,parameters:list)->tuple:
    
     pos = 0
@@ -95,12 +99,13 @@ def check_condition(command:list,parameters:list,start_word:int)->tuple:
     
     if command[start_word] in conditional_command:
         
-        if command[start_word] == "can" or command[start_word] == "not":
-            tuple_check = check_can_not(command[start_word+1::],parameters)
+        if command[start_word] == "can":
+            tuple_check = check_can(command[start_word+1::],parameters)
             if tuple_check[0] is False:
                 return False,0
             new_i = tuple_check[1] + 2
-        
+        ###
+        ###Implementation not
         elif command[1] == "facing":
             if check_facing(command) is False:
                 return False,0
