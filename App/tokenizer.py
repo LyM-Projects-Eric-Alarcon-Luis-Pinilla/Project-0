@@ -20,6 +20,7 @@ def tokenize(text:str)->list:
             if has_separator(token):
                 sub_token = ""
                 for small_token in token:
+                    
                     if (small_token == "(" or small_token == "{") and sub_token == "":
                         tokenized_list.append(small_token)
                         if len(sub_token) != 0:
@@ -44,7 +45,20 @@ def tokenize(text:str)->list:
             else:
                 tokenized_list.append(token)
 
-    return tokenized_list
+    separated_tokenized_list = []
+    for token in tokenized_list:
+        
+        if ";" in token and len(token) != 1:
+            list_token = token.split(";")
+            for letter in list_token:
+                if letter != "":
+                    separated_tokenized_list.append(letter)
+                else:
+                    separated_tokenized_list.append(";")
+        else:
+            separated_tokenized_list.append(token)
+
+    return separated_tokenized_list
 
 def has_separator(token:str)->bool:
     """_summary_

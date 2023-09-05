@@ -56,7 +56,7 @@ def check_can_not(command:list,parameters:list)->tuple:
             
         pos +=1
         
-    verify = sc.verify_command(simple_com,parameters)[0]
+    verify = sc.verify_command(simple_com,parameters)
     
     return verify,pos
     

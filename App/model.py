@@ -92,7 +92,7 @@ def block_commandProc(i,tokenizer)->tuple:
     while i < len(tokenizer) and flag:
         token = tokenizer[new_i]
             
-        if token == "if" or token == "while" or token == "else":
+        if token == "if" or token == "while" or token == "else" or token == "repeat":
             counter_close += 1
             counter_open += 1
         
@@ -151,3 +151,5 @@ def create_blocks(tokenizer:list) -> list:
         
         
     return list_of_components    
+
+

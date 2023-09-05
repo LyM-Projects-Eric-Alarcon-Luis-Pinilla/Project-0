@@ -48,9 +48,7 @@ def verify_command(command:list,parameters:list) -> bool:
         verify = check_cycle_command(command,parameters)
     elif command[0] in defined_command:
         verify = check_defined_command(command)
-    else:
-        return False
-    
+
     return verify
     
 
