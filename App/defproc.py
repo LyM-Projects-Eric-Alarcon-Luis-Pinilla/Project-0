@@ -2,6 +2,7 @@ import keyword as ke
 import parameter
 import procedureblock as procedure
 import simplecom as smc
+import datatype as dt
 
 
 def check(block:list)->bool:
@@ -16,9 +17,9 @@ def check(block:list)->bool:
     verify = True
     
     if block[0] != "defproc":
-        verify = False
-    if ke.iskeyword(block[1]) or block[1].isnumeric():
-        verify = False
+        return False
+    if not(dt.is_def_value(block[1])):
+        return False
     list_parameter = parameter.list_parameter_def(block[2::])
     
     smc.add_command(block[1],len(list_parameter))

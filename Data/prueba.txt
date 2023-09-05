@@ -26,6 +26,11 @@ defProc safeWalk ( n )
 if can(walk( n ) ) { walk( n ) } else { nop () }
 }
 
+defProc s2afeWalk ( n )
+{
+if can(walk( n ) ) { walk( n ) } else { nop () }
+}
+
 {
 jump(1 ,1);
 fill ();
