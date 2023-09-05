@@ -24,15 +24,15 @@ def structure_parameter(sublist:list,num_parameter:int, type_parameter:str,varia
     while pos < len(sublist)-1 and verify:
         token = sublist[pos]
         
-        if (pos == len(sublist)-2) and (not dt.is_def_value(token) or token == ","):
+        if (pos == len(sublist)-2) and (not dt.is_value_parameter(token) or token == ","):
             verify = False
         elif pos%2 == 1: 
-            if (not dt.is_def_value(token)):
+            if (not dt.is_value_parameter(token)):
                 verify = False
                 
             elif type_parameter == "int":
                 if not(token.isnumeric()):
-                    if token not in variables or token not in defined_var:
+                    if token not in variables and token not in defined_var:
                         verify = False
             count_parameter += 1
     

@@ -16,7 +16,7 @@ def check(block:list)->bool:
     
     if block[0] != "defvar":
         verify = False
-    if dt.is_def_value(block[1]):
+    if not(dt.is_def_value(block[1])):
         verify = False
     if not (dt.is_value(block[2])):
         verify = False

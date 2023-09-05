@@ -10,8 +10,9 @@ try:
    print("File loaded properly")
    print("Verifying the code........ \n\n")
    verifier = controller.verify(data)
-   print(f"The code has correct syntax? \n {verifier}")
-   print(verifier)
+   print("===========================================")
+   print(f"The code has correct syntax? :  {verifier}")
+   print("=========================================== \n")
    print("Thanks for using the program")
     
 except:

@@ -85,7 +85,7 @@ def check_Special_Command(sublist:list,parameters:list)->bool:
 
 def is_command_present(text:str):
     
-    if text in (regular_command) or text in special_command or text in conditional_command or text in cycle_command:
+    if text in (regular_command) or text in special_command or text in conditional_command or text in cycle_command or text in defined_command:
         return True
     else:
         return False
@@ -97,14 +97,13 @@ def walk_leap_possibilities(command:list,parameters:list)->bool:
     
     if num_inner_parameter == 1:
         
-        if dt.is_value(inner_parameter[0]):
+        if dt.is_value(inner_parameter[0]) or inner_parameter[0] in parameters or inner_parameter[0] in defined_var:
             verify = par.check(command,1,"None",1,parameters)
         else:
             return False
     
     elif num_inner_parameter == 2:
-        
-        if dt.is_value(inner_parameter[0]):
+        if dt.is_value(inner_parameter[0]) or inner_parameter[0] in parameters or inner_parameter[0] in defined_var:
             if inner_parameter[1] in allowed_D or inner_parameter[1] in allowed_O:
                 verify = par.check(command,1,"None",2,parameters)
             else:
@@ -154,9 +153,9 @@ def check_defined_command(command:list)->bool:
     
     return verify_parameter[0]
 
-def add_command(name:str,num_par:int)->None:
+def add_command(name:str,num_parameters:int)->None:
     
-    defined_command[name] = {"quantity":num_par}
+    defined_command[name] = {"quantity":num_parameters}
     
     pass
 
@@ -170,4 +169,5 @@ def get_var()->list:
     return defined_var
 
 
-
+def get_comand()->dict:
+    return defined_command

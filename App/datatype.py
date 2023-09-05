@@ -10,7 +10,7 @@ def is_def_value(token:str)->bool:
     
     verify = True
     
-    if ke.iskeyword(token):
+    if ke.iskeyword(token) or not(token.isalnum()) or token[0].isnumeric():
         verify = False
     
     return verify
@@ -26,3 +26,12 @@ def is_value(token:str)->bool:
     """
 
     return token.isnumeric()
+
+def is_value_parameter(token:str)->bool:
+    
+    verify = True
+    
+    if ke.iskeyword(token):
+        verify = False
+        
+    return verify

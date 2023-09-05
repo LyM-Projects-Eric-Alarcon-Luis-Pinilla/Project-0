@@ -5,7 +5,7 @@ import defproc
 import procedureblock as bl
 import tokenizer as tk
 
-
+    
 def verify_code(text:str)->bool:  
     """Main Function
 
@@ -22,7 +22,7 @@ def verify_code(text:str)->bool:
     if list_of_components is None:
         return False
     else:
-        print("Blocks identified correctlt")
+        print("Structures identified correctly")
         verify = individual_verification(list_of_components)
     return verify
 

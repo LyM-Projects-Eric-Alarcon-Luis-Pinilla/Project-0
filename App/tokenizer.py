@@ -30,6 +30,11 @@ def tokenize(text:str)->list:
                             tokenized_list.append(sub_token)
                             sub_token = ""
                         tokenized_list.append(small_token)
+                    elif small_token == ",":
+                        if len(sub_token) != 0:
+                            tokenized_list.append(sub_token)
+                            sub_token = ""
+                        tokenized_list.append(small_token)
                     else:
                         sub_token += small_token    
                         
