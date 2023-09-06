@@ -29,4 +29,6 @@ firs character can not be a number. For example: {var1num} is a valid name, but 
 4. Simplecommands should always be inside a defProc function or inside a block of commands {}, hence there cannot
 be simplecommands alone or outside a structure as it would be considered an error.
 
+5. A block of command cannot be empty, hence if there is a block {} with no commands it will be considered an error.
+
 Thanks for reading!

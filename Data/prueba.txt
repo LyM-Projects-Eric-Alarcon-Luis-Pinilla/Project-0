@@ -1,4 +1,19 @@
-defVar nom 5    
+defVar nom 5
+defVar x 1    
+
+{
+leap(5);
+leap(5,north);
+leap(5,right);
+walk(nom);
+walk(nom,north);
+walk(nom,right)
+}
+
+defProc safeWalk ( n )
+{
+if can(leap( 2,north)) { walk( n ) } else { nop () }
+}
 
 defProc goNorth ()
 {
@@ -18,20 +33,18 @@ leap (5)
 
 defProc fill ()
 {
-while can(drop(1) ) {drop(1) }
+while can(drop(1) ) {drop(1) };
+fill()
 }
 
-defProc safeWalk ( n )
-{
-if not(not(can(walk( n ) ))) { walk( n ) } else { nop () }
-}
 
-defProc s2afeWalk ( n )
+defProc s2versionwalk ( n )
 {
-if can(walk( n ) ) { walk( n ) } else { nop () }
+if not( not(can(drop(1)) ) ) { walk( n ) } else { nop () }
 }
 
 {
+
 jump(1 ,1);
 fill ();
 repeat 7 times {
@@ -40,5 +53,8 @@ safeWalk (1);
 turnto ( south );
 safeWalk (1);
 fill ()
-}
+};
+fill();
+leap(1,north)
+
 }

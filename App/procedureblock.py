@@ -13,10 +13,10 @@ def sublist_by_command(block:list)->list:
         
         if token == "repeat":
             tuple_repeat = sublist_repeat(block[end_pos::])
-            if tuple_repeat[1] is None:
+            if tuple_repeat[1] == -1:
                 list_of_sublist.append(tuple_repeat[0])
                 return list_of_sublist
-            end_pos += tuple_repeat[1]
+            end_pos += tuple_repeat[1] 
             start_pos = end_pos
             list_of_sublist.append(tuple_repeat[0])
             token = block[end_pos]
@@ -51,13 +51,13 @@ def sublist_repeat(block:list)->list:
         end_pos += 1
         
     if end_pos == len(block):    
-        return sublist,None
+        return sublist,-1
     elif block[end_pos] == ";":
         sublist.append(";")
         if end_pos+1 == len(block):
-            return sublist,None
+            return sublist,-1
         else:
-            return end_pos+1
+            return sublist,end_pos+1
     else:
         return sublist,end_pos
         

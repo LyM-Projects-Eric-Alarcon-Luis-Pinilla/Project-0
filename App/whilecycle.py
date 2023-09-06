@@ -10,7 +10,7 @@ def check(block:list,parameters)->bool:
     new_i = tuple_check_cond[1]
     
     if block[-1] == ";":
-        verify = proc.check(block[new_i: len(block)-2],parameters)
+        verify = proc.check(block[new_i: len(block)-1],parameters)
     else:
         verify = proc.check(block[new_i::],parameters)
     
@@ -24,7 +24,7 @@ def check_repeat(block:list,parameters:list) -> bool:
     if block[1] != "times":
         return False
     if block[-1] == ";":
-        verify = proc.check(block[2: len(block)-2],parameters)
+        verify = proc.check(block[2: len(block)-1],parameters)
     else:
         verify = proc.check(block[2::],parameters)
         
