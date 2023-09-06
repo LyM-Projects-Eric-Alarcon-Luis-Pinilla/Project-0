@@ -43,6 +43,7 @@ def check_can(command:list,parameters:list)->tuple:
     
     pos = 1
     flag = True
+    simple_com = []
     
     if command[0] != "(":
         return False
@@ -71,9 +72,40 @@ def check_facing(command:list)->bool:
     else:
         return True
     
-def check_not(block:list)->bool:
-    ###Implementation not
-    return False
+def check_not(command:list,parameters:list)->bool:
+    
+    pos = 1
+    flag = True
+    counter_close = 0
+    simple_com = []
+    
+    if command[0] != "(":
+        return False
+    
+    while pos < len(command) and flag:
+        
+        token = command[pos]
+        if token == "facing" or token == "can" or token == "not":
+            counter_close += 1
+            
+            
+        if token == ")":
+            if  counter_close == 0:
+                simple_com = command[1:pos+1]
+                flag = False
+            else:
+                counter_close -= 1
+            
+        pos +=1
+        
+    if len(simple_com) == 0:
+        return False,0
+    else:
+        verify = check_condition(simple_com,parameters,0)
+        if verify:
+            return verify,pos
+        else:
+            return False,0
 
 def submit_block(command:list,parameters:list)->tuple:
    
@@ -104,9 +136,14 @@ def check_condition(command:list,parameters:list,start_word:int)->tuple:
             if tuple_check[0] is False:
                 return False,0
             new_i = tuple_check[1] + 2
-        ###
-        ###Implementation not
-        elif command[1] == "facing":
+
+        elif command[start_word] == "not":
+            tuple_check = check_not(command[start_word+1::],parameters)
+            if tuple_check[0] is False:
+                return False,0
+            new_i = tuple_check[1]+2
+        
+        elif command[start_word] == "facing":
             if check_facing(command) is False:
                 return False,0
             new_i = 5

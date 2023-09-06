@@ -1,4 +1,4 @@
-defVar nom 5
+defVar nom 5    
 
 defProc goNorth ()
 {
@@ -23,7 +23,7 @@ while can(drop(1) ) {drop(1) }
 
 defProc safeWalk ( n )
 {
-if can(walk( n ) ) { walk( n ) } else { nop () }
+if not(not(can(walk( n ) ))) { walk( n ) } else { nop () }
 }
 
 defProc s2afeWalk ( n )
