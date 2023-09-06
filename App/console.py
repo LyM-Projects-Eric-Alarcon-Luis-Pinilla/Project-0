@@ -1,6 +1,7 @@
 import controller 
 
 print("=================================================")
+print("IF YOU HAVEN´T READ THE README FILE PLEASE DO IT, IT HAS IMPORTANT CONSIDERATIONS")
 print("Welcome, remember that before running the code ")
 print("you should place the txt file you want to verify in the 'Data' folder of this proyect \n \n")
 print("=================================================")
