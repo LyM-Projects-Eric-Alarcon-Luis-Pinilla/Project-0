@@ -11,8 +11,9 @@ The file console.py is the file you should run to test the program.
 Important Features:
 
 FOR LOADING A TEXT FILE:
+
 In order to test the code, please upload in the folder "Data" the txt file you want to check. As well, the tokenizer used was Regex, hence is necesary to install it in order for the program to work. In the folder you will find an example named 
-prueba.txt that shows a correct example. In the view the name you need to introduce is only the name of the file for example
+prueba.txt that shows a correct example. In the console, the name you need to introduce is only the name of the file for example
 prueba.txt.
 
 CONSIDERATIONS OF THE CODE:
