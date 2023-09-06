@@ -136,7 +136,7 @@ def check_possible_assignment(command:list):
 
     if len(command) > 4 or len(command) < 3:
         return False
-    if ke.isKeyWord(command[0]) or command[0].isnumeric():
+    if (not (command[0] in defined_var)) or (ke.isKeyWord(command[0]) or command[0].isnumeric()):
         return False
     if command[1] != "=":
         return False
